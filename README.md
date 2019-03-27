@@ -1,4 +1,4 @@
-![alt text](https://gitlab.com/goomer-interview/android/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
+![alt text](https://gitlab.com/goomer-interview/backend/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
 
 ## Goomer Challenge - Dev Backend
 
