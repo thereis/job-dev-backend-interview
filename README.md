@@ -11,7 +11,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 ### Instruções
 
 - **Nome do Projeto:** Goomer Restaurant Menu
-- **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e seu cardápio.
+- **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e os produtos do seu cardápio.
 - **Tecnologia:** Node.js com banco de dados MongoDB ou MySQL.
 - **Entregaveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
 
@@ -69,7 +69,9 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 - Use boas práticas de programação.
 
 ### FAQ
+
 #### Posso utilizar frameworks/bibliotecas?
+
 Sim.
 
 #### Quanto tempo eu tenho ?
@@ -84,4 +86,4 @@ Você pode escolher qualquer uma delas.
 
 ### Happy coding 
 
-![alt text](https://gitlab.com/goomer-interview/android/job-dev-android-interview/raw/master/media/may-the-force-be-with-you.jpg "Happy Ccoding!!!")
+![alt text](https://gitlab.com/goomer-interview/backend/job-dev-backend-interview/raw/master/media/may-the-force-be-with-you.jpg "Happy Coding!!!")
