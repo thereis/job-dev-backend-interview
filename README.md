@@ -53,7 +53,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 
 - Você será avaliado pela qualidade do código, legibilidade e pela quantidade de funcionalidades implementadas.
 - Você é livre para tomar as decisões técnicas com as quais você se sente mais confortável. Apenas esteja pronto para explicar as razões que fundamentaram suas escolhas =]
-- Inclua um arquivo *README* que inclua:
+- Inclua um arquivo *README* que possua:
   - desafios/problemas com os quais você se deparou durante a execução do projeto.
   - maneiras através das quais você pode melhorar a aplicação, seja em performance, estrutura ou padrões. 
   - todas as intruções necessárias para que qualquer pessoa consiga rodar sua aplicação sem maiores problemas.
