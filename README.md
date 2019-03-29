@@ -10,7 +10,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 
 ### Instruções
 
-- **Nome do Projeto:** Goomer Restaurant Menu
+- **Nome do Projeto:** Goomer Lista Rango
 - **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e os produtos do seu cardápio.
 - **Tecnologia:** Node.js com banco de dados MongoDB ou MySQL.
 - **Entregaveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
@@ -20,11 +20,11 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 - A sua API deverá ser capaz de:
     - Listar todos os restaurantes
     - Cadastrar novos restaurantes
-    - Listar um restaurante
-    - Alterar um restaurante
+    - Listar os dados de um restaurante
+    - Alterar os dados um restaurante
     - Excluir um restaurante
     - Listar todos os produtos de um restautante
-    - Criar um produto para um restaurante
+    - Criar um produto de um restaurante
     - Alterar um produto de um restaurante
     - Exlcuir um produto de um restaurante
 
@@ -39,7 +39,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
     - Nome do produto
     - Preço do produto
     - Categoria do produto (ex.: Doce, Salgados, Sucos...)
-    - Quando o Produto estiver em promoção, precisa ter os seguintes campos:
+    - Quando o Produto for colocado em promoção, precisa ter os seguintes campos:
         - Descrição para a promoção do produto
         - Preço promocional
         - Dias da semana e o horário em que o produto deve estar em promoção
