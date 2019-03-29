@@ -12,7 +12,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 
 - **Nome do Projeto:** Goomer Lista Rango
 - **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e os produtos do seu cardápio.
-- **Tecnologia:** Node.js com banco de dados MongoDB ou MySQL.
+- **Tecnologia:** Node.js com banco de dados relacional ou NoSQL.
 - **Entregaveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
 
 ### Desafio
@@ -80,9 +80,9 @@ Quanto mais tempo você demorar, mais críticos seremos na sua avaliação =]
 
 Esperamos que você finalize em 2 ou 3 dias. Cuidado para não acabar reinventando a roda.
 
-#### MongoDB ou MySQL?
+#### Banco de Dados Relacional ou NoSQL?
 
-Você pode escolher qualquer uma delas.
+Você pode escolher qualquer uma delas. Não queremos te influenciar, mas optar por MySQL ou NoSQL seria uma boa :)
 
 ### Happy coding 
 
