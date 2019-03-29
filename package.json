@@ -1,0 +1,27 @@
+{
+  "name": "job-dev-backend-interview",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/thereis/job-dev-backend-interview.git",
+  "author": "Lucas Reis <thereis@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\""
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.20",
+    "ts-node": "^8.0.3",
+    "typegoose": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.0",
+    "@types/mongodb": "^3.1.18",
+    "@types/mongoose": "^5.3.7",
+    "nodemon": "^1.18.10",
+    "typescript": "^3.4.1"
+  }
+}
