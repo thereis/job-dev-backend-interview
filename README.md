@@ -1,4 +1,4 @@
-![alt text](https://gitlab.com/goomer-interview/backend/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
+![alt text](https://github.com/goomerdev/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
 
 ## Goomer Challenge - Dev Backend
 
@@ -86,4 +86,4 @@ Você pode escolher qualquer uma delas. Não queremos te influenciar, mas optar 
 
 ### Happy coding 
 
-![alt text](https://gitlab.com/goomer-interview/backend/job-dev-backend-interview/raw/master/media/may-the-force-be-with-you.jpg "Happy Coding!!!")
+![alt text](https://github.com/goomerdev/job-dev-backend-interview/raw/master/media/may-the-force-be-with-you.jpg "Happy Coding!!!")
