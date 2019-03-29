@@ -1,6 +1,6 @@
 ![alt text](https://github.com/goomerdev/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
 
-## Goomer Challenge - Dev Backend
+## Challenge - Developer Backend
 
 Você provavelmente já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia esse documento até o final e se você se interessar, pode começar o processo à partir daqui =]
 
@@ -13,7 +13,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
 - **Nome do Projeto:** Goomer Lista Rango
 - **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e os produtos do seu cardápio.
 - **Tecnologia:** Node.js com banco de dados relacional ou NoSQL.
-- **Entregaveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
+- **Entregáveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
 
 ### Desafio
 
@@ -40,7 +40,7 @@ Você será avaliado pela sua capacidade de escrever um código simples, de fác
     - Preço do produto
     - Categoria do produto (ex.: Doce, Salgados, Sucos...)
     - Quando o Produto for colocado em promoção, precisa ter os seguintes campos:
-        - Descrição para a promoção do produto
+        - Descrição para a promoção do produto (ex.: Chopp pela metade do preço)
         - Preço promocional
         - Dias da semana e o horário em que o produto deve estar em promoção
 
