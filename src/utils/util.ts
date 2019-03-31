@@ -1,4 +1,6 @@
-import { IWorkingDays } from "../models/Restaurant";
+import { IWorkingDays } from "../modules/restaurants/models/Restaurant";
+
+import * as moment from "moment";
 
 export const isValidUtcDate = (date: string) => {
   if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(date)) return false;
@@ -54,11 +56,19 @@ export const checkIfIsValidWorkingDate = (dates: IWorkingDays[]) => {
       throw Error("start or end is not defined for times.");
     }
 
-    const isValidStartDate = isValidUtcDate(times.start);
-    const isValidEndDate = isValidUtcDate(times.end);
+    const isValidStartTime = moment(times.start, "HH:mm", true);
+    const isValidEndTime = moment(times.end, "HH:mm", true);
 
-    if (!isValidStartDate || !isValidEndDate) {
-      throw Error("Dates must be in UTC format.");
+    if (!isValidStartTime.isValid() || !isValidEndTime.isValid()) {
+      throw Error(
+        "Check if the start and end parameters are valid hour:minute."
+      );
+    }
+
+    let diff = moment(isValidEndTime).diff(isValidStartTime, "minutes");
+
+    if (diff < 15) {
+      throw Error("This restaurant need to be opened for at least 15 minutes.");
     }
   });
 

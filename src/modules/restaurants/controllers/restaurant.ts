@@ -6,7 +6,7 @@ import { validationResult } from "express-validator/check";
  * Models
  */
 import { Restaurant } from "../models/Restaurant";
-import { checkIfIsValidWorkingDate } from "../utils/util";
+import { checkIfIsValidWorkingDate } from "../../../utils/util";
 
 const RestaurantModel = new Restaurant().getModelForClass(Restaurant);
 
