@@ -173,12 +173,12 @@ All products routes are available after a valid restaurant id. For example:
 **Product Model**
 |Property|Type|Value|Length|
 |--|--|--|--|
-|restaurantId|string|The restaurant id that you're interacting.||
+|restaurantId|string|The restaurant id that you're interacting.| |
 |name|string|The product name.|min: 3 max: 50|
-|photo|url|Valid url photo.||
-|price|number|A valid number entity.||
-|category|**CategoryModel.id**|You need to place here the created category id.||
-|promotion|**IProductPromotion**|If this product has support to a promotions.||
+|photo|url|Valid url photo.| |
+|price|number|A valid number entity.| |
+|category|**CategoryModel.id**|You need to place here the created category id.| |
+|promotion|**IProductPromotion**|If this product has support to a promotions.| |
 
 **IProductPromotion**
 |Property|Type|Value|Length|
