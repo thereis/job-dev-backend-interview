@@ -27,8 +27,6 @@ class Service {
       this.app.use(bodyParser.urlencoded({ extended: false }));
 
       // add routes
-      this.app.get("/", (req, res) => res.send("Hello World!"));
-
       this.app.use("/restaurants", RestaurantsRoutes);
 
       // add not found
