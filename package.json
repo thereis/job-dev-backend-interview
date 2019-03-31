@@ -6,6 +6,7 @@
   "author": "Lucas Reis <thereis@live.com>",
   "license": "MIT",
   "scripts": {
+    "dist": "tsc",
     "dev": "nodemon src/server.ts --exec \"ts-node -r dotenv/config\""
   },
   "dependencies": {
