@@ -5,13 +5,12 @@ import { validationResult } from "express-validator/check";
 /**
  * Models
  */
-import { Restaurant } from "../models/Restaurant";
-import { checkIfIsValidWorkingDate } from "../utils/util";
+import { Category } from "../models/Category";
 
-const RestaurantModel = new Restaurant().getModelForClass(Restaurant);
+const CategoryModel = new Category().getModelForClass(Category);
 
-export class RestaurantController {
-  async createOrUpdateRestaurant(
+export class CategoryController {
+  async createOrUpdateCategory(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -34,35 +33,29 @@ export class RestaurantController {
         });
       }
 
-      const params = req.body as Restaurant;
-
-      const isValidWorkingDate = checkIfIsValidWorkingDate(params.activityDate);
-
-      if (!isValidWorkingDate) {
-        throw Error("Activity date has errors, check documentation.");
-      }
+      const params = req.body as Category;
 
       let response: any;
 
       // is inserting a new document
       if (req.method !== "PATCH") {
-        const newRestaurant = await new RestaurantModel({
+        const newCategory = await new CategoryModel({
           ...params,
           createdAt: new Date()
         }).save();
 
         response = {
-          _id: newRestaurant.id,
+          _id: newCategory.id,
           ...params
         };
       } else {
-        const _id = req.params.id;
+        const _id = req.params.categoryId;
 
         if (!_id) {
-          throw Error("You need to specify a valid restaurant id.");
+          throw Error("You need to specify a valid name.");
         }
 
-        const updateRestaurant = await RestaurantModel.findOneAndUpdate(
+        const updateCategory = await CategoryModel.findOneAndUpdate(
           {
             _id
           },
@@ -73,7 +66,7 @@ export class RestaurantController {
           { upsert: true }
         );
 
-        if (!updateRestaurant) {
+        if (!updateCategory) {
           throw Error("Could not update restaurant.");
         }
 
@@ -86,13 +79,13 @@ export class RestaurantController {
     }
   }
 
-  getRestaurants = async (
+  getCategories = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const query = await RestaurantModel.find({}, null, err => {
+      const query = await CategoryModel.find({}, null, err => {
         if (err) throw err;
       });
 
@@ -102,22 +95,22 @@ export class RestaurantController {
     }
   };
 
-  getRestaurant = async (
+  getCategory = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const _id = req.params.id;
+      const _id = req.params.categoryId;
 
-      const data = await RestaurantModel.findById(_id, (err, res) => {
+      const data = await CategoryModel.findById(_id, (err, res) => {
         if (err) {
           return;
         }
       });
 
       if (data === null) {
-        throw Error("The restaurant id does not exists.");
+        throw Error("The category id does not exists.");
       }
 
       return res.json(data);
@@ -126,18 +119,22 @@ export class RestaurantController {
     }
   };
 
-  deleteRestaurant = async (
+  deleteCategory = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
     try {
-      const _id = req.params.id;
+      const _id = req.params.categoryId;
 
-      const data = await RestaurantModel.findOneAndDelete({ _id });
+      if (!_id) {
+        throw Error("Define a valid category id.");
+      }
+
+      const data = await CategoryModel.findOneAndDelete({ _id });
 
       if (data === null) {
-        throw Error("The restaurant id does not exists.");
+        throw Error("The category id does not exists.");
       }
 
       return res.json({

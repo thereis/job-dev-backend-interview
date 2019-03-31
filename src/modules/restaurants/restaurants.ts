@@ -30,20 +30,20 @@ class Route {
       check("activityDate").isArray()
     ];
 
-    // get all registered restaurants
     this.router.get("/", this.restaurantController.getRestaurants);
-
-    // insert a new restaurant
-    this.router.post("/", validation(), this.restaurantController.createOrUpdateRestaurant);
-
-    // update a existing restaurant
-    this.router.patch("/:id", validation(), this.restaurantController.createOrUpdateRestaurant);
-
-    // get a specific restaurant
     this.router.get("/:id", this.restaurantController.getRestaurant);
-
-    // delete a restaurant
     this.router.delete("/:id", this.restaurantController.deleteRestaurant);
+
+    this.router.post(
+      "/",
+      validation(),
+      this.restaurantController.createOrUpdateRestaurant
+    );
+    this.router.patch(
+      "/:id",
+      validation(),
+      this.restaurantController.createOrUpdateRestaurant
+    );
   };
 }
 

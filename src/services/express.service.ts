@@ -3,6 +3,7 @@ import * as bodyParser from "body-parser";
 import * as http from "http";
 
 import { RestaurantsRoutes } from "../modules/restaurants/restaurants";
+import { CategoriesRoutes } from "../modules/categories/categories";
 
 /**
  * Application routes
@@ -28,6 +29,7 @@ class Service {
 
       // add routes
       this.app.use("/restaurants", RestaurantsRoutes);
+      this.app.use("/restaurants/:id/categories", CategoriesRoutes);
 
       // add not found
       this.app.use(this.notFound);
