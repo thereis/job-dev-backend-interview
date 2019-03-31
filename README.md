@@ -221,6 +221,9 @@ Example json:
 
 Todo.
 
+# Final notes
+My available time was the main problem to deliver this challenge. I could finished the unit tests if I had more time to.
+
 ### Developed by
 
 Lucas Reis Máximo Dias - thereis@live.com
