@@ -128,10 +128,19 @@ export const checkIfRestaurantExists = async (restaurantId: string) => {
   return result !== null;
 };
 
-export const checkIfCategoryExists = async (categoryId: string) => {
+export const checkIfCategoryExists = async (
+  restaurantId: string,
+  categoryId: string
+) => {
+  const restaurantExists = await checkIfRestaurantExists(restaurantId);
+
+  if (!restaurantExists) {
+    throw new Error("Could not find a restaurant with specified id.");
+  }
+
   const CategoryModel = new Category().getModelForClass(Category);
 
-  let result = await CategoryModel.findOne({ _id: categoryId });
+  let result = await CategoryModel.findOne({ _id: categoryId, restaurantId });
 
   return result !== null;
 };

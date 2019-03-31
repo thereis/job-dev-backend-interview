@@ -40,17 +40,20 @@ export class ProductController {
       }
 
       const params = req.body as Product;
+      const restaurantId = extractRestaurantId(req.baseUrl);
+
+      if (!restaurantId) {
+        throw Error("Restaurant id is does not exists.");
+      }
 
       if (params.category) {
         if (!validator.isMongoId(params.category))
           throw Error("Not a valid category id.");
 
-        let result = await checkIfCategoryExists(params.category);
+        let result = await checkIfCategoryExists(restaurantId, params.category);
 
         if (!result) throw Error("Category does not exists.");
       }
-
-      const restaurantId = extractRestaurantId(req.baseUrl);
 
       // validate promotional condition
       if (params.promotion) {
