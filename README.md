@@ -85,7 +85,7 @@ All post content must be a valid JSON and should be submitted as a body content.
 
 |Property|Type|Value|Length
 |--|--|--|--|
-|dayOfWeek|`monday|tuesday|wednesday|thursday|friday|saturday`|Working days. You can do a combination of days: `monday-sunday` is ready as `monday to sunday`||
+|dayOfWeek|`monday/tuesday/wednesday/thursday/friday/saturday`|Working days. You can do a combination of days: `monday-sunday` is ready as `monday to sunday`||
 |times|object|The starting and ending hours. `{"start": "00:00", "end": "12:00"}`||
 
 **Example JSON:**
