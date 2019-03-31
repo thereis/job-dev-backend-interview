@@ -14,7 +14,7 @@ class Route {
   }
 
   /**
-   * Restaurants routes
+   * Categories routes
    */
   categories = () => {
     const validation = () => [

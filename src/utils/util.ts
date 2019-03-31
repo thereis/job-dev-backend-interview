@@ -1,6 +1,45 @@
+import * as moment from "moment";
+import * as validator from "validator";
+import * as express from "express";
+
+/**
+ * Models
+ */
+import { Restaurant } from "../modules/restaurants/models/Restaurant";
+import { Category } from "../modules/categories/models/Category";
+
+/**
+ * Interfaces
+ */
 import { IWorkingDays } from "../modules/restaurants/models/Restaurant";
 
-import * as moment from "moment";
+export const asyncMiddleware = (fn: any) => (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+export const validateRestaurantMiddleWare = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  // Restaurant validation
+  const restaurantId = extractRestaurantId(req.baseUrl);
+
+  if (!restaurantId) {
+    throw Error("Restaurant id is not valid.");
+  }
+
+  let restaurantExists = await checkIfRestaurantExists(restaurantId);
+  if (!restaurantExists) {
+    throw Error("Restaurant does not exists.");
+  }
+
+  next();
+};
 
 export const isValidUtcDate = (date: string) => {
   if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(date)) return false;
@@ -73,4 +112,26 @@ export const checkIfIsValidWorkingDate = (dates: IWorkingDays[]) => {
   });
 
   return true;
+};
+
+export const extractRestaurantId = (url: string) => {
+  let path = url.split("/");
+
+  return path.find(arg => validator.isMongoId(arg));
+};
+
+export const checkIfRestaurantExists = async (restaurantId: string) => {
+  const RestaurantModel = new Restaurant().getModelForClass(Restaurant);
+
+  let result = await RestaurantModel.findOne({ _id: restaurantId });
+
+  return result !== null;
+};
+
+export const checkIfCategoryExists = async (categoryId: string) => {
+  const CategoryModel = new Category().getModelForClass(Category);
+
+  let result = await CategoryModel.findOne({ _id: categoryId });
+
+  return result !== null;
 };
