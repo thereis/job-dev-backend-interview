@@ -143,7 +143,7 @@ All categories routes are available after a valid restaurant id. For example:
 | [DELETE] | /categories/:id |                   | Deletes a specified category.                             |
 
 **Category Model**
-|Property|Type|Value|Length
+|Property|Type|Value|Length|
 |--|--|--|--|
 |restaurantId|string|The restaurant id that you're interacting.||
 |name|string|The category name.|min: 3 max: 50|
@@ -152,8 +152,8 @@ Example json:
 
 ```json
 {
-    "restaurantId": "123",
-    "name", "Sodas"
+  "restaurantId": "123",
+  "name": "Sodas"
 }
 ```
 
@@ -161,7 +161,8 @@ Example json:
 
 All products routes are available after a valid restaurant id. For example:
 `/restaurants/:id/products`
-|METHOD|URL|BODY DATA|RESPONSE
+
+|METHOD|URL|BODY DATA|RESPONSE|
 |--|--|--|--|
 |GET|/products||Returns all products for the specified restaurant.|
 |GET|/products/:id||Returns a specific product for the specified restaurant.|
@@ -170,7 +171,7 @@ All products routes are available after a valid restaurant id. For example:
 |[DELETE]|/products/:id||Deletes a specified product.|
 
 **Product Model**
-|Property|Type|Value|Length
+|Property|Type|Value|Length|
 |--|--|--|--|
 |restaurantId|string|The restaurant id that you're interacting.||
 |name|string|The product name.|min: 3 max: 50|
@@ -180,7 +181,7 @@ All products routes are available after a valid restaurant id. For example:
 |promotion|**IProductPromotion**|If this product has support to a promotions.||
 
 **IProductPromotion**
-|Property|Type|Value|Length
+|Property|Type|Value|Length|
 |--|--|--|--|
 |price|number|A valid number entity.||
 |description|string|Promotion description.||
@@ -222,6 +223,7 @@ Example json:
 Todo.
 
 # Final notes
+
 My available time was the main problem to deliver this challenge. I could finished the unit tests if I had more time to.
 
 ### Developed by
