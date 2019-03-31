@@ -1,89 +1,220 @@
-![alt text](https://github.com/goomerdev/job-dev-backend-interview/raw/master/media/logo-azul.png "Goomer")
+## Backend challenge
 
-## Challenge - Developer Backend
+This is the backend challenge.
 
-Você provavelmente já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia esse documento até o final e se você se interessar, pode começar o processo à partir daqui =]
+# Requirements
 
-Não é esperado que todos consigam realizar esse desafio por completo, já que é destinado a todos os níveis de carreira.
+**NodeJS** >= 8.9.4
+**Windows x64 or Unix**
+Connection to internet.
 
-Você será avaliado pela sua capacidade de escrever um código simples, de fácil manutenção, e pela quantidade de funcionalidades que você entregar.
+# Setup
 
-### Instruções
+Clone the repository and install all the dependencies with:
 
-- **Nome do Projeto:** Goomer Lista Rango
-- **Objetivo do Projeto:** Criar uma API RESTful capaz de gerenciar os restaurantes e os produtos do seu cardápio.
-- **Tecnologia:** Node.js com banco de dados relacional ou NoSQL.
-- **Entregáveis:** Dê um fork do desafio para sua conta pessoal, siga as instruções abaixo, crie a sua versão desse repositório e então submeta um PR com a sua solução.
+```sh
+yarn
+```
 
-### Desafio
+After that, rename the `.env.example` file to `.env`. I've already defined the database values because I'm using Mongo Atlas to host the project, I had no time to configure it on localhost ;).
 
-- A sua API deverá ser capaz de:
-    - Listar todos os restaurantes
-    - Cadastrar novos restaurantes
-    - Listar os dados de um restaurante
-    - Alterar os dados um restaurante
-    - Excluir um restaurante
-    - Listar todos os produtos de um restautante
-    - Criar um produto de um restaurante
-    - Alterar um produto de um restaurante
-    - Exlcuir um produto de um restaurante
+### Development mode
 
-- O cadastro do restaurante precisa ter os seguintes campos:
-    - Foto do restaurante
-    - Nome do restaurante
-    - Endereço do restaurante
-    - Horários de funcionamento do restaurante (ex.: De Segunda à Sexta das 09h as 18h e de Sabado à Domingo das 11h as 20h).
-    
-- O cadastro de produtos do restaurante precisa ter os seguintes campos:
-    - Foto do produto
-    - Nome do produto
-    - Preço do produto
-    - Categoria do produto (ex.: Doce, Salgados, Sucos...)
-    - Quando o Produto for colocado em promoção, precisa ter os seguintes campos:
-        - Descrição para a promoção do produto (ex.: Chopp pela metade do preço)
-        - Preço promocional
-        - Dias da semana e o horário em que o produto deve estar em promoção
+Just run the following commands to run on development mode:
 
-##### Formato de horários
-- É necessário tratar os campos que indicam horários de funcionamento e horário para as promoções dos produtos. 
-- Os campos devem possuir o formato `HH:mm`. 
-- Os horários devem possuir intervalo mínimo de 15 minutos.
+```sh
+yarn dev
+```
 
-### O que nós vamos avaliar
+It will run a instance of ts-node with nodemon. It will refresh automatically the project if a change have been detected.
 
-- Você será avaliado pela qualidade do código, legibilidade e pela quantidade de funcionalidades implementadas.
-- Você é livre para tomar as decisões técnicas com as quais você se sente mais confortável. Apenas esteja pronto para explicar as razões que fundamentaram suas escolhas =]
-- Inclua um arquivo *README* que possua:
-  - desafios/problemas com os quais você se deparou durante a execução do projeto.
-  - maneiras através das quais você pode melhorar a aplicação, seja em performance, estrutura ou padrões. 
-  - todas as intruções necessárias para que qualquer pessoa consiga rodar sua aplicação sem maiores problemas.
+### Production mode
 
-### Dicas
+This project have been designed to be used with typescript. You can use `ts-node` or the default `node` instance by running the following command to compile the project.
 
-- Documente seu projeto em arquivos markdown explicando a estrutura, processo de setup e requisitos.
-- Tenha sempre um mindset de usabilidade, escalabilidade e colaboração.
-- A organização das branches e os commits no repositório falam muito sobre como você organiza seu trabalho.
-- Os testes unitários são mais do que desejados.
-- O design/estrutura do código da aplicação deve ser *production ready*.
-- Tenha em mente os conceitos de *SOLID, KISS, YAGNI e DRY*.
-- Use boas práticas de programação.
+```sh
+yarn dist
+```
 
-### FAQ
+And then run:
 
-#### Posso utilizar frameworks/bibliotecas?
+```sh
+node -r dotenv/config ./dist/server.js
+```
 
-Sim.
+# Project architecture
 
-#### Quanto tempo eu tenho ?
+I've decided to split the project into two services: **Mongo** and **Express**. I've turned it into a promise, because when the server is bootstrapping, it will only start the express service only if a connection is stablished to the Mongo database. Both are running by separated instances.
 
-Quanto mais tempo você demorar, mais críticos seremos na sua avaliação =]
+The endpoints are considered as **modules**, because it will be much more easier to maintain and find them on their own folder.
 
-Esperamos que você finalize em 2 ou 3 dias. Cuidado para não acabar reinventando a roda.
+## Modules
 
-#### Banco de Dados Relacional ou NoSQL?
+The folder architecture on modules must be
+| module-name
+| --> controllers
+| --> models
+| --> module-name.route.ts
 
-Você pode escolher qualquer uma delas. Não queremos te influenciar, mas optar por MySQL ou NoSQL seria uma boa :)
+The controllers folder will contain all the business logic for the specified module.
+The models folder will contain the Mongo typegoose model.
+The module-name.route.ts will contain the routes to be accessed by the defined endpoint.
 
-### Happy coding 
+## Available endpoints
 
-![alt text](https://github.com/goomerdev/job-dev-backend-interview/raw/master/media/may-the-force-be-with-you.jpg "Happy Coding!!!")
+All endpoints are respective to a restaurant.
+
+The header **Content-Type** must be:
+|Content-Type|
+|--|
+|application/json|
+
+The routes does not have an authentication functionality.
+
+All post content must be a valid JSON and should be submitted as a body content.
+
+### Restaurants routes
+
+| METHOD   | URL              | BODY DATA           | RESPONSE                       |
+| -------- | ---------------- | ------------------- | ------------------------------ |
+| GET      | /restaurants     |                     | Returns all restaurants.       |
+| GET      | /restaurants/:id |                     | Returns a specific restaurant. |
+| POST     | /restaurants     | **RestaurantModel** | Creates a new restaurant.      |
+| [PATCH]  | /restaurants/:id | **RestaurantModel** | Updates a existing restaurant. |
+| [DELETE] | /restaurants/:id |                     | Deletes a restaurant.          |
+
+**Restaurant Model**
+|Property|Type|Value|Length
+|--|--|--|--|
+|name|string|Name of the restaurant|min:3 max:50 |
+|address|string|Where is located|min:5 max:50|
+|photo|url|A valid url||
+|activityDate|**IWorkingDays[]**|Restaurant Working Days||
+
+**IWorkingDays Model**
+|Property|Type|Value|Length
+|--|--|--|--|
+|dayOfWeek|`monday|tuesday|wednesday|thursday|friday|saturday`|Working days. You can do a combination of days: `monday-sunday` is ready as `monday to sunday`||
+|times|object|The starting and ending hours. `{"start": "00:00", "end": "12:00"}`||
+
+**Example JSON:**
+
+```json
+{
+  "name": "Doces da vovó",
+  "address": "Rua XV, 15",
+  "photo": "https://url.com/a.png",
+  "activityDate": [
+    {
+      "dayOfWeek": "monday-friday",
+      "times": {
+        "start": "08:00",
+        "end": "18:15"
+      }
+    },
+    {
+      "dayOfWeek": "saturday-sunday",
+      "times": {
+        "start": "10:00",
+        "end": "14:30"
+      }
+    }
+  ]
+}
+```
+
+### Categories routes
+
+All categories routes are available after a valid restaurant id. For example:
+`/restaurants/:id/categories`
+
+| METHOD   | URL             | BODY DATA         | RESPONSE                                                  |
+| -------- | --------------- | ----------------- | --------------------------------------------------------- |
+| GET      | /categories     |                   | Returns all categories for the specified restaurant.      |
+| GET      | /categories/:id |                   | Returns a specific category for the specified restaurant. |
+| POST     | /categories     | **CategoryModel** | Creates a new category for the specified restaurant.      |
+| [PATCH]  | /categories/:id | **CategoryModel** | Updates a existing category for the specified restaurant. |
+| [DELETE] | /categories/:id |                   | Deletes a specified category.                             |
+
+**Category Model**
+|Property|Type|Value|Length
+|--|--|--|--|
+|restaurantId|string|The restaurant id that you're interacting.||
+|name|string|The category name.|min: 3 max: 50|
+
+Example json:
+
+```json
+{
+    "restaurantId": "123",
+    "name", "Sodas"
+}
+```
+
+### Products Routes
+
+All products routes are available after a valid restaurant id. For example:
+`/restaurants/:id/products`
+|METHOD|URL|BODY DATA|RESPONSE
+|--|--|--|--|
+|GET|/products||Returns all products for the specified restaurant.|
+|GET|/products/:id||Returns a specific product for the specified restaurant.|
+|POST|/products|**ProductModel**|Creates a new product for the specified restaurant.|
+|[PATCH]|/products/:id|**ProductModel**|Updates a existing product for the specified restaurant.|
+|[DELETE]|/products/:id||Deletes a specified product.|
+
+**Product Model**
+|Property|Type|Value|Length
+|--|--|--|--|
+|restaurantId|string|The restaurant id that you're interacting.||
+|name|string|The product name.|min: 3 max: 50|
+|photo|url|Valid url photo.||
+|price|number|A valid number entity.||
+|category|**CategoryModel.id**|You need to place here the created category id.||
+|promotion|**IProductPromotion**|If this product has support to a promotions.||
+
+**IProductPromotion**
+|Property|Type|Value|Length
+|--|--|--|--|
+|price|number|A valid number entity.||
+|description|string|Promotion description.||
+|days|**IWorkingDays**|The definition for when this promotion will be active.||
+
+Example json:
+
+```json
+{
+  "name": "Coca-Cola",
+  "category": "generated category id",
+  "price": 10.99,
+  "photo": "http://url.com/a.png",
+  "promotion": {
+    "description": "Coke for 1.99",
+    "price": 1.99,
+    "days": [
+      {
+        "dayOfWeek": "monday",
+        "times": {
+          "start": "10:00",
+          "end": "12:00"
+        }
+      },
+      {
+        "dayOfWeek": "sunday",
+        "times": {
+          "start": "09:00",
+          "end": "09:15"
+        }
+      }
+    ]
+  }
+}
+```
+
+# TESTS
+
+Todo.
+
+### Developed by
+
+Lucas Reis Máximo Dias - thereis@live.com
