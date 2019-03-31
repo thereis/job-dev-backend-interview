@@ -3,6 +3,10 @@ import { Router } from "express";
 import { check } from "express-validator/check";
 
 import { CategoryController } from "../categories/controllers/category";
+import {
+  asyncMiddleware,
+  validateRestaurantMiddleWare
+} from "../../utils/util";
 
 class Route {
   router = Router();
@@ -26,17 +30,31 @@ class Route {
     /**
      * Categories
      */
-    this.router.get("/", this.categoryController.getCategories);
-    this.router.get("/:categoryId", this.categoryController.getCategory);
-    this.router.delete("/:categoryId", this.categoryController.deleteCategory);
+    this.router.get(
+      "/",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.categoryController.getCategories
+    );
+    this.router.get(
+      "/:categoryId",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.categoryController.getCategory
+    );
+    this.router.delete(
+      "/:categoryId",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.categoryController.deleteCategory
+    );
     this.router.post(
       "/",
       validation(),
+      asyncMiddleware(validateRestaurantMiddleWare),
       this.categoryController.createOrUpdateCategory
     );
     this.router.patch(
       "/:categoryId",
       validation(),
+      asyncMiddleware(validateRestaurantMiddleWare),
       this.categoryController.createOrUpdateCategory
     );
   };
