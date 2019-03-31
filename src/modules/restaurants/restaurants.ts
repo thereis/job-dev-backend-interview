@@ -34,7 +34,10 @@ class Route {
     this.router.get("/", this.restaurantController.getRestaurants);
 
     // insert a new restaurant
-    this.router.post("/", validation, this.restaurantController.newRestaurant);
+    this.router.post("/", validation(), this.restaurantController.createOrUpdateRestaurant);
+
+    // update a existing restaurant
+    this.router.patch("/:id", validation(), this.restaurantController.createOrUpdateRestaurant);
 
     // get a specific restaurant
     this.router.get("/:id", this.restaurantController.getRestaurant);

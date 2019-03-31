@@ -11,7 +11,7 @@ import { checkIfIsValidWorkingDate } from "../utils/util";
 const RestaurantModel = new Restaurant().getModelForClass(Restaurant);
 
 export class RestaurantController {
-  async newRestaurant(
+  async createOrUpdateRestaurant(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -42,17 +42,45 @@ export class RestaurantController {
         throw Error("Activity date has errors, check documentation.");
       }
 
-      /**
-       * Insert to mongo
-       */
-      const newRestaurant = await new RestaurantModel({
-        ...params,
-        createdAt: new Date()
-      }).save();
+      let response: any;
 
-      const restaurant = newRestaurant.toJSON();
+      // is inserting a new document
+      if (req.method !== "PATCH") {
+        const newRestaurant = await new RestaurantModel({
+          ...params,
+          createdAt: new Date()
+        }).save();
 
-      return res.json({ ...restaurant });
+        response = {
+          id: newRestaurant.id,
+          ...params
+        };
+      } else {
+        const _id = req.params.id;
+
+        if (!_id) {
+          throw Error("You need to specify a valid restaurant id.");
+        }
+
+        const updateRestaurant = await RestaurantModel.findOneAndUpdate(
+          {
+            _id
+          },
+          {
+            ...params,
+            updatedAt: new Date()
+          },
+          { upsert: true }
+        );
+
+        if (!updateRestaurant) {
+          throw Error("Could not update restaurant.");
+        }
+
+        response = { ...params };
+      }
+
+      return res.json({ ...response });
     } catch (e) {
       next(e);
     }
