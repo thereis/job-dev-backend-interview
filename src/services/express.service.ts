@@ -2,9 +2,9 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as http from "http";
 
-import { RestaurantsRoutes } from "../modules/restaurants/restaurants";
-import { CategoriesRoutes } from "../modules/categories/categories";
-import { ProductsRoutes } from "../modules/products/products";
+import { RestaurantsRoutes } from "../modules/restaurants/restaurants.route";
+import { CategoriesRoutes } from "../modules/categories/categories.route";
+import { ProductsRoutes } from "../modules/products/products.route";
 
 /**
  * Application routes
