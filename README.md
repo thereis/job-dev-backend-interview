@@ -42,6 +42,12 @@ And then run:
 node -r dotenv/config ./dist/server.js
 ```
 
+Or run:
+
+```sh
+yarn start
+```
+
 # Project architecture
 
 I've decided to split the project into two services: **Mongo** and **Express**. I've turned it into a promise, because when the server is bootstrapping, it will only start the express service only if a connection is stablished to the Mongo database. Both are running by separated instances.
