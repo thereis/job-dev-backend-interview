@@ -12,6 +12,9 @@ export class Product extends Typegoose {
   name: string;
 
   @prop({ required: true })
+  restaurantId: string;
+
+  @prop({ required: true })
   photo: string;
 
   @prop({ required: true })

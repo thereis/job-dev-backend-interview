@@ -32,10 +32,27 @@ class Route {
       check("category").isString()
     ];
 
-    // this.router.get("/", this.productController.getRestaurants);
-    // this.router.get("/:id", this.productController.getRestaurant);
-    // this.router.delete("/:id", this.productController.deleteRestaurant);
+    this.router.get(
+      "/",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.productController.getProducts
+    );
+    this.router.get(
+      "/:productId",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.productController.getProduct
+    );
 
+    // delete a product
+    this.router.delete(
+      "/:productId",
+      asyncMiddleware(validateRestaurantMiddleWare),
+      this.productController.deleteProduct
+    );
+
+    /**
+     * Create or update a new product
+     */
     this.router.post(
       "/",
       validation(),

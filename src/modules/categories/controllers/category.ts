@@ -6,6 +6,7 @@ import { validationResult } from "express-validator/check";
  * Models
  */
 import { Category } from "../models/Category";
+import { extractRestaurantId } from "../../../utils/util";
 
 const CategoryModel = new Category().getModelForClass(Category);
 
@@ -34,6 +35,7 @@ export class CategoryController {
       }
 
       const params = req.body as Category;
+      const restaurantId = extractRestaurantId(req.baseUrl);
 
       let response: any;
 
@@ -41,6 +43,7 @@ export class CategoryController {
       if (req.method !== "PATCH") {
         const newCategory = await new CategoryModel({
           ...params,
+          restaurantId,
           createdAt: new Date()
         }).save();
 
@@ -61,6 +64,7 @@ export class CategoryController {
           },
           {
             ...params,
+            restaurantId,
             updatedAt: new Date()
           },
           { upsert: true }
@@ -70,7 +74,7 @@ export class CategoryController {
           throw Error("Could not update restaurant.");
         }
 
-        response = { ...params };
+        response = { ...params, restaurantId };
       }
 
       return res.json({ ...response });
@@ -85,7 +89,9 @@ export class CategoryController {
     next: express.NextFunction
   ) => {
     try {
-      const query = await CategoryModel.find({}, null, err => {
+      const restaurantId = extractRestaurantId(req.baseUrl);
+
+      const query = await CategoryModel.find({ restaurantId }, null, err => {
         if (err) throw err;
       });
 
@@ -101,13 +107,17 @@ export class CategoryController {
     next: express.NextFunction
   ) => {
     try {
+      const restaurantId = extractRestaurantId(req.baseUrl);
       const _id = req.params.categoryId;
 
-      const data = await CategoryModel.findById(_id, (err, res) => {
-        if (err) {
-          return;
+      const data = await CategoryModel.findById(
+        { _id, restaurantId },
+        (err, res) => {
+          if (err) {
+            return;
+          }
         }
-      });
+      );
 
       if (data === null) {
         throw Error("The category id does not exists.");

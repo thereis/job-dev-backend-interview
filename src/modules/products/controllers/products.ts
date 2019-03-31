@@ -9,7 +9,8 @@ import { validationResult } from "express-validator/check";
 import { Product } from "../models/Product";
 import {
   checkIfIsValidWorkingDate,
-  checkIfCategoryExists
+  checkIfCategoryExists,
+  extractRestaurantId
 } from "../../../utils/util";
 
 const ProductModel = new Product().getModelForClass(Product);
@@ -49,6 +50,8 @@ export class ProductController {
         if (!result) throw Error("Category does not exists.");
       }
 
+      const restaurantId = extractRestaurantId(req.baseUrl);
+
       // validate promotional condition
       if (params.promotion) {
         const { days, description, price } = params.promotion;
@@ -66,6 +69,7 @@ export class ProductController {
       if (req.method !== "PATCH") {
         const newProduct = await new ProductModel({
           ...params,
+          restaurantId,
           createdAt: new Date()
         }).save();
 
@@ -86,6 +90,7 @@ export class ProductController {
           },
           {
             ...params,
+            restaurantId,
             updatedAt: new Date()
           },
           { upsert: true }
@@ -98,9 +103,78 @@ export class ProductController {
         response = { ...params };
       }
 
-      return res.send({ ...response });
+      return res.send({ ...response, restaurantId });
     } catch (e) {
       next(e);
     }
   }
+
+  getProducts = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const restaurantId = extractRestaurantId(req.baseUrl);
+
+      const query = await ProductModel.find({ restaurantId }, null, err => {
+        if (err) throw err;
+      });
+
+      return res.json(query);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getProduct = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const restaurantId = extractRestaurantId(req.baseUrl);
+      const _id = req.params.productId;
+
+      const data = await ProductModel.findById(
+        { _id, restaurantId },
+        (err, res) => {
+          if (err) {
+            return;
+          }
+        }
+      );
+
+      if (data === null) {
+        throw Error("The product does not exists.");
+      }
+
+      return res.json(data);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  deleteProduct = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const _id = req.params.productId;
+      console.log("_id: ", _id);
+
+      const data = await ProductModel.findOneAndDelete({ _id });
+
+      if (data === null) {
+        throw Error("The product id does not exists.");
+      }
+
+      return res.json({
+        message: `${_id} have been deleted successfully.`
+      });
+    } catch (e) {
+      next(e);
+    }
+  };
 }
