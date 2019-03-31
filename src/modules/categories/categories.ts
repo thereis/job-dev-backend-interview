@@ -17,7 +17,7 @@ class Route {
    * Restaurants routes
    */
   categories = () => {
-    const categoryValidation = () => [
+    const validation = () => [
       check("name")
         .isString()
         .isLength({ min: 3, max: 50 })
@@ -31,12 +31,12 @@ class Route {
     this.router.delete("/:categoryId", this.categoryController.deleteCategory);
     this.router.post(
       "/",
-      categoryValidation(),
+      validation(),
       this.categoryController.createOrUpdateCategory
     );
     this.router.patch(
       "/:categoryId",
-      categoryValidation(),
+      validation(),
       this.categoryController.createOrUpdateCategory
     );
   };
