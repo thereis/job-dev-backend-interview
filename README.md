@@ -53,6 +53,7 @@ The module-name.route.ts will contain the routes to be accessed by the defined e
 All endpoints are respective to a restaurant.
 
 The header **Content-Type** must be:
+
 |Content-Type|
 |--|
 |application/json|
@@ -63,7 +64,7 @@ All post content must be a valid JSON and should be submitted as a body content.
 
 ### Restaurants routes
 
-|METHOD|URL|BODY DATA|RESPONSE
+|METHOD|URL|BODY DATA|RESPONSE|
 |--|--|--|--|
 |GET|/restaurants||Returns all restaurants.|
 |GET|/restaurants/:id||Returns a specific restaurant.|
@@ -72,7 +73,8 @@ All post content must be a valid JSON and should be submitted as a body content.
 |[DELETE]|/restaurants/:id||Deletes a restaurant.|
 
 **Restaurant Model**
-|Property|Type|Value|Length
+
+|Property|Type|Value|Length|
 |--|--|--|--|
 |name|string|Name of the restaurant|min:3 max:50 |
 |address|string|Where is located|min:5 max:50|
@@ -80,6 +82,7 @@ All post content must be a valid JSON and should be submitted as a body content.
 |activityDate|**IWorkingDays[]**|Restaurant Working Days||
 
 **IWorkingDays Model**
+
 |Property|Type|Value|Length
 |--|--|--|--|
 |dayOfWeek|`monday|tuesday|wednesday|thursday|friday|saturday`|Working days. You can do a combination of days: `monday-sunday` is ready as `monday to sunday`||
@@ -114,7 +117,7 @@ All post content must be a valid JSON and should be submitted as a body content.
 All categories routes are available after a valid restaurant id. For example:
 `/restaurants/:id/categories`
 
-|METHOD|URL|BODY DATA|RESPONSE
+|METHOD|URL|BODY DATA|RESPONSE|
 |--|--|--|--|
 |GET|/categories||Returns all categories for the specified restaurant.|
 |GET|/categories/:id||Returns a specific category for the specified restaurant.|
@@ -123,7 +126,8 @@ All categories routes are available after a valid restaurant id. For example:
 |[DELETE]|/categories/:id||Deletes a specified category.|
 
 **Category Model**
-|Property|Type|Value|Length
+
+|Property|Type|Value|Length|
 |--|--|--|--|
 |restaurantId|string|The restaurant id that you're interacting.||
 |name|string|The category name.|min: 3 max: 50|
@@ -139,7 +143,8 @@ Example json:
 ### Products Routes
 All products routes are available after a valid restaurant id. For example:
 `/restaurants/:id/products`
-|METHOD|URL|BODY DATA|RESPONSE
+
+|METHOD|URL|BODY DATA|RESPONSE|
 |--|--|--|--|
 |GET|/products||Returns all products for the specified restaurant.|
 |GET|/products/:id||Returns a specific product for the specified restaurant.|
@@ -148,7 +153,8 @@ All products routes are available after a valid restaurant id. For example:
 |[DELETE]|/products/:id||Deletes a specified product.|
 
 **Product Model**
-|Property|Type|Value|Length
+
+|Property|Type|Value|Length|
 |--|--|--|--|
 |restaurantId|string|The restaurant id that you're interacting.||
 |name|string|The product name.|min: 3 max: 50|
@@ -158,7 +164,8 @@ All products routes are available after a valid restaurant id. For example:
 |promotion|**IProductPromotion**|If this product has support to a promotions.||
 
 **IProductPromotion**
-|Property|Type|Value|Length
+
+|Property|Type|Value|Length|
 |--|--|--|--|
 |price|number|A valid number entity.||
 |description|string|Promotion description.||
