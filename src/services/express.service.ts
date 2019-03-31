@@ -1,12 +1,12 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as http from "http";
-import { RestaurantRoute } from "../modules/restaurants/restaurants";
+
+import { RestaurantsRoutes } from "../modules/restaurants/restaurants";
 
 /**
- * Collector routes
+ * Application routes
  */
-
 class Service {
   app: express.Application = express();
   server?: http.Server;
@@ -21,11 +21,15 @@ class Service {
 
       // support application/json type post data
       this.app.use(bodyParser.json());
+      this.app.use(express.json());
+
       //support application/x-www-form-urlencoded post data
       this.app.use(bodyParser.urlencoded({ extended: false }));
 
       // add routes
-      this.app.use("/restaurants", RestaurantRoute);
+      this.app.get("/", (req, res) => res.send("Hello World!"));
+
+      this.app.use("/restaurants", RestaurantsRoutes);
 
       // add not found
       this.app.use(this.notFound);
@@ -86,7 +90,7 @@ class Service {
   notFound(req: express.Request, res: express.Response) {
     res.status(404).send({
       error: true,
-      message: "The requested endpoint could not be found."
+      message: "The requested endpoint could not be found!"
     });
   }
 
@@ -99,7 +103,7 @@ class Service {
     res: express.Response,
     next: express.NextFunction
   ) {
-    res.status(500).send({
+    res.status(422).send({
       error: true,
       message: err.message
     });

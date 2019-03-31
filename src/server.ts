@@ -11,11 +11,11 @@ class Server {
   start(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       try {
-        // Express service
-        await ExpressService.start();
-
         // Database service
         await MongoService.start();
+
+        // Express service
+        await ExpressService.start();
       } catch (e) {
         console.log(e.message);
       }
